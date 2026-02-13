@@ -1,0 +1,31 @@
+### Test Health Check
+GET http://localhost:3001/api/health
+
+###
+GET http://localhost:3001/api
+
+### Test GET Users (sem JWT - deve falhar com 401)
+GET http://localhost:3001/api/users
+
+### Test with Super Admin JWT Token
+# SUBSTITUA O TOKEN ABAIXO COM O REAL DO SEU SUPER ADMIN
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhODdhZjkzZS1lMWViLTQ1Y2QtOGQwNi05MzRhMDQ3NGIzZTMiLCJlbWFpbCI6ImZlbGlwZWFsZmFoQGdtYWlsLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTcwMzUyMDA0NiwiZXhwIjoxNzA1MTEyMDQ2fQ.test
+
+### GET Users com Token
+GET http://localhost:3001/api/users
+Authorization: Bearer {{token}}
+
+### POST Create User (deve funcionar se token é válido)
+POST http://localhost:3001/api/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "email": "novo@example.com",
+  "nome": "Novo Usuário",
+  "password": "senha123456",
+  "role": "OPERADOR"
+}
+
+### GET Health (deve funcionar sem token)
+GET http://localhost:3001/api/health
