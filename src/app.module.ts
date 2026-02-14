@@ -38,6 +38,7 @@ import { Tenant } from './modules/tenants/entities/tenant.entity';
           idleTimeoutMillis: 30000,
           connectionTimeoutMillis: 5000,
           statement_timeout: 30000,
+          family: 4, // Force IPv4 (Supabase IPv6 compatibility issue)
         },
       }),
     }),
