@@ -53,15 +53,8 @@ EXPOSE 3001
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD node -e "require('http').get('http://localhost:3001/health', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})" || exit 1
 
-# Create startup script to disable IPv6 and start app
-RUN echo '#!/bin/sh\n\
-sysctl -w net.ipv6.conf.all.disable_ipv6=1 2>/dev/null || true\n\
-sysctl -w net.ipv6.conf.default.disable_ipv6=1 2>/dev/null || true\n\
-node --dns-result-order=ipv4first dist/main\n\
-' > /app/entrypoint.sh && chmod +x /app/entrypoint.sh
-
 # Use dumb-init to handle signals properly
 ENTRYPOINT ["dumb-init", "--"]
 
 # Start NestJS application
-CMD ["/app/entrypoint.sh"]
+CMD ["node", "dist/main"]
