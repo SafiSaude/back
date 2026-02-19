@@ -37,7 +37,6 @@ import { Tenant } from './modules/tenants/entities/tenant.entity';
           max: 10,
           idleTimeoutMillis: 30000,
           connectionTimeoutMillis: 5000,
-          family: 6, // Force IPv6 for DigitalOcean droplet
         },
       }),
     }),
